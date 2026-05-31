@@ -81,7 +81,7 @@ function M.insertChar(ch)
     S.buf[S.cy] = S.buf[S.cy]:sub(1,S.cx-1) .. ch .. S.buf[S.cy]:sub(S.cx)
     S.cx = S.cx+1
     S.modified = true
-    syn.markBufDirty(S.cy)
+    syn.markBufDirty(S.cy, false)
 end
 
 function M.deleteCharAt(row, col)
@@ -89,7 +89,7 @@ function M.deleteCharAt(row, col)
     if col < 1 or col > #line then return end
     S.buf[row] = line:sub(1,col-1) .. line:sub(col+1)
     S.modified  = true
-    syn.markBufDirty(row)
+    syn.markBufDirty(row, false)
 end
 
 function M.breakLine()
@@ -160,7 +160,7 @@ function M.toggleCase(row, col, n)
     end
     S.buf[row]  = table.concat(res)
     S.modified  = true
-    syn.markBufDirty(row)
+    syn.markBufDirty(row, false)
 end
 
 -- -- Clipboard paste -----------------------------------------------------------

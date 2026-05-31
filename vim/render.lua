@@ -221,6 +221,7 @@ function M.render()
     local cdF         = S.dirtyFrom
 
     if S.bufDirty then syn.buildMlCache(synType) end
+    local cdTo = S.dirtyTo  -- last buf line re-tokenised (set by buildMlCache)
 
     local full = nw ~= S.prevNw or first or modeChanged
                  or math.abs(delta) >= S.textH
@@ -245,7 +246,9 @@ function M.render()
     end
     local function markBufRows(d)
         if not S.bufDirty then return end
-        for r = math.max(1,cdF-S.scrollY), S.textH do d[r]=true end
+        local rFrom = math.max(1, cdF  - S.scrollY)
+        local rTo   = math.min(S.textH, cdTo - S.scrollY)
+        for r = rFrom, rTo do d[r]=true end
     end
 
     if full then
@@ -356,6 +359,7 @@ function M.render()
     S.prevNw      = nw
     S.prevMode    = S.mode
     S.bufDirty    = false
+    S.dirtyTo     = 0
 end
 
 return M

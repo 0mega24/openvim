@@ -118,9 +118,16 @@ function M.tokenizeLua(line, ml)
     return segs, ml
 end
 
-function M.markBufDirty(from)
+-- toEnd=false means only this line changed (char insert/delete).
+-- toEnd=nil/true means lines shifted below (line insert/delete).
+function M.markBufDirty(from, toEnd)
     from = from or 1
     if from < S.dirtyFrom then S.dirtyFrom = from end
+    if toEnd == false then
+        if from > S.dirtyTo then S.dirtyTo = from end
+    else
+        S.dirtyTo = math.huge
+    end
     S.bufDirty = true
 end
 
@@ -132,7 +139,9 @@ function M.buildMlCache(syn)
     if S.dirtyFrom > #S.buf then return end
     local start = S.dirtyFrom
     local ml    = start > 1 and S.mlCache[start] or nil
+    local lastI = start
     for i = start, #S.buf do
+        lastI = i
         S.mlCache[i] = ml
         local segs, nextMl = M.tokenizeLua(S.buf[i] or "", ml)
         S.segCache[i] = segs
@@ -141,6 +150,7 @@ function M.buildMlCache(syn)
         end
         ml = nextMl
     end
+    if lastI > S.dirtyTo then S.dirtyTo = lastI end
     S.dirtyFrom = #S.buf + 1
 end
 

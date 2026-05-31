@@ -54,6 +54,7 @@ S.bufDirty    = true
 S.mlCache     = {}
 S.segCache    = {}
 S.dirtyFrom   = 1
+S.dirtyTo     = 0
 
 -- GPU color cache
 S._curFg = -1
@@ -104,6 +105,7 @@ function S.reset()
     S.mlCache       = {}
     S.segCache      = {}
     S.dirtyFrom     = 1
+    S.dirtyTo       = 0
     S._curFg        = -1
     S._curBg        = -1
 end
