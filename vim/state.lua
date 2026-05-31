@@ -59,4 +59,53 @@ S.dirtyFrom   = 1
 S._curFg = -1
 S._curBg = -1
 
+-- Reset all fields to initial values.
+-- Called at the start of every main() invocation because OC caches
+-- require() results — without this, S.running stays false after the
+-- first run and the editor soft-locks on every subsequent open.
+function S.reset()
+    S.buf           = { "" }
+    S.cx            = 1
+    S.cy            = 1
+    S.mode          = "normal"
+    S.filename      = nil
+    S.message       = ""
+    S.cmdline       = ""
+    S.scrollY       = 0
+    S.scrollX       = 0
+    S.running       = true
+    S.modified      = false
+    S.undoStack     = {}
+    S.redoStack     = {}
+    S.vx            = 1
+    S.vy            = 1
+    S.W             = 1
+    S.H             = 1
+    S.textH         = 1
+    S.clipboard     = {}
+    S.clipboardLine = true
+    S.pendingG      = false
+    S.pendingZ      = false
+    S.pendingZ2     = false
+    S.pendingD      = false
+    S.pendingY      = false
+    S.pendingC      = false
+    S.count         = ""
+    S.lastFt        = nil
+    S.lastSearch    = nil
+    S.lastSearchDir = "/"
+    S.searchDir     = "/"
+    S.prevScrollY   = -1
+    S.prevScrollX   = 0
+    S.prevCy        = 0
+    S.prevNw        = -1
+    S.prevMode      = "normal"
+    S.bufDirty      = true
+    S.mlCache       = {}
+    S.segCache      = {}
+    S.dirtyFrom     = 1
+    S._curFg        = -1
+    S._curBg        = -1
+end
+
 return S
