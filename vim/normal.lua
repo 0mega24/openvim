@@ -51,7 +51,7 @@ function M.normalKey(char, code)
         S.count = S.count.."0"; return
     end
 
-    -- ── Z prefix (ZZ / ZQ) ───────────────────────────────────────────────────
+    -- -- Z prefix (ZZ / ZQ) ---------------------------------------------------
     if S.pendingZ2 then
         S.pendingZ2 = false
         local fio = require("vim.fileio")
@@ -60,7 +60,7 @@ function M.normalKey(char, code)
         return
     end
 
-    -- ── z prefix (zz / zt / zb) ──────────────────────────────────────────────
+    -- -- z prefix (zz / zt / zb) ----------------------------------------------
     if S.pendingZ then
         S.pendingZ = false
         if     char=="z" then edit.scrollCenter()
@@ -70,7 +70,7 @@ function M.normalKey(char, code)
         return
     end
 
-    -- ── g prefix (gg / gI) ───────────────────────────────────────────────────
+    -- -- g prefix (gg / gI) ---------------------------------------------------
     if S.pendingG then
         S.pendingG = false
         local n = getCount(1)
@@ -86,7 +86,7 @@ function M.normalKey(char, code)
         edit.clampCursor(); return
     end
 
-    -- ── d operator ───────────────────────────────────────────────────────────
+    -- -- d operator -----------------------------------------------------------
     if S.pendingD then
         S.pendingD = false
         local n = getCount(1)
@@ -153,7 +153,7 @@ function M.normalKey(char, code)
         edit.clampCursor(); return
     end
 
-    -- ── y operator ───────────────────────────────────────────────────────────
+    -- -- y operator -----------------------------------------------------------
     if S.pendingY then
         S.pendingY = false
         local n = getCount(1)
@@ -178,7 +178,7 @@ function M.normalKey(char, code)
         return
     end
 
-    -- ── c operator ───────────────────────────────────────────────────────────
+    -- -- c operator -----------------------------------------------------------
     if S.pendingC then
         S.pendingC = false
         local n = getCount(1)
@@ -226,7 +226,7 @@ function M.normalKey(char, code)
         edit.clampCursor(); return
     end
 
-    -- ── Standard normal mode ──────────────────────────────────────────────────
+    -- -- Standard normal mode --------------------------------------------------
     local hadCount = S.count ~= ""
     local n = getCount(1)
 

@@ -11,7 +11,7 @@
 local component  = require("component")
 local filesystem = require("filesystem")
 
--- ── Preflight ─────────────────────────────────────────────────────────────────
+-- -- Preflight -----------------------------------------------------------------
 
 if not component.isAvailable("internet") then
     io.stderr:write("Error: an internet card is required to install openvim.\n")
@@ -21,7 +21,7 @@ end
 local internet = component.internet
 local computer = require("computer")
 
--- ── Argument parsing ──────────────────────────────────────────────────────────
+-- -- Argument parsing ----------------------------------------------------------
 
 local args    = { ... }
 local MODE    = "install"   -- install | update | replace
@@ -37,7 +37,7 @@ end
 
 local REPO = "https://raw.githubusercontent.com/0mega24/openvim/" .. branch .. "/"
 
--- ── File lists ────────────────────────────────────────────────────────────────
+-- -- File lists ----------------------------------------------------------------
 
 -- Core files: always downloaded and overwritten.
 local FILES = {
@@ -60,7 +60,7 @@ local FILES = {
 local VIMRC_SRC = "vimrc.template"
 local VIMRC_DST = "/home/.vimrc"
 
--- ── Helpers ───────────────────────────────────────────────────────────────────
+-- -- Helpers -------------------------------------------------------------------
 
 local function fetch(url)
     local req, err = internet.request(url)
@@ -123,7 +123,7 @@ local function downloadAndWrite(src, dst)
     return true
 end
 
--- ── Main ─────────────────────────────────────────────────────────────────────
+-- -- Main ---------------------------------------------------------------------
 
 gpu = nil
 do
@@ -193,7 +193,7 @@ else
     end
 end
 
--- ── Summary ───────────────────────────────────────────────────────────────────
+-- -- Summary -------------------------------------------------------------------
 
 print("")
 if fail_count == 0 then

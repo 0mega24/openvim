@@ -48,7 +48,7 @@ local function removeDir(path)
     end
 end
 
--- ── Files installed by the installer ─────────────────────────────────────────
+-- -- Files installed by the installer -----------------------------------------
 
 local CORE_FILES = {
     "/usr/bin/openvim",
@@ -66,7 +66,7 @@ local CORE_FILES = {
     "/etc/openvim/vimrc.template",
 }
 
--- ── Main ─────────────────────────────────────────────────────────────────────
+-- -- Main ---------------------------------------------------------------------
 
 print("openvim uninstaller")
 print("")
@@ -85,7 +85,7 @@ end
 -- Ask separately about /home/.vimrc since the user may have customised it.
 print("")
 if filesystem.exists("/home/.vimrc") then
-    if confirm("Remove /home/.vimrc? (your personal config — skip if you want to keep it)") then
+    if confirm("Remove /home/.vimrc? (your personal config -- skip if you want to keep it)") then
         removeFile("/home/.vimrc")
     else
         io.write("  keeping   /home/.vimrc\n")

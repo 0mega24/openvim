@@ -202,7 +202,7 @@ local function drawStatusBar(nw, synType)
     setColor(0xffffff, 0x000000)
 end
 
--- ── Main render ───────────────────────────────────────────────────────────────
+-- -- Main render ---------------------------------------------------------------
 
 function M.render()
     local edit = require("vim.edit")

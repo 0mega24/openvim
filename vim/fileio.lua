@@ -25,7 +25,7 @@ end
 function M.cmdSave(path)
     path = path or S.filename
     if not path or path == "" then
-        S.message = "No filename — use :w <filename>"
+        S.message = "No filename -- use :w <filename>"
         return false
     end
     local bak     = path..".bak"

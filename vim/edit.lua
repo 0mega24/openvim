@@ -2,7 +2,7 @@ local S   = require("vim.state")
 local syn = require("vim.syntax")
 local M   = {}
 
--- ── Undo / redo ───────────────────────────────────────────────────────────────
+-- -- Undo / redo ---------------------------------------------------------------
 
 function M.snapshot()
     local s = { buf={}, cx=S.cx, cy=S.cy }
@@ -37,7 +37,7 @@ function M.redo()
     S.message = "Redo"
 end
 
--- ── Cursor & scroll ───────────────────────────────────────────────────────────
+-- -- Cursor & scroll -----------------------------------------------------------
 
 function M.clampCursor()
     S.cy = math.max(1, math.min(S.cy, #S.buf))
@@ -75,7 +75,7 @@ function M.scrollBottom()
     S.scrollY = math.max(0, S.cy - S.textH + require("vim.config").cfg.scrollOff)
 end
 
--- ── Buffer editing primitives ─────────────────────────────────────────────────
+-- -- Buffer editing primitives -------------------------------------------------
 
 function M.insertChar(ch)
     S.buf[S.cy] = S.buf[S.cy]:sub(1,S.cx-1) .. ch .. S.buf[S.cy]:sub(S.cx)
@@ -163,7 +163,7 @@ function M.toggleCase(row, col, n)
     syn.markBufDirty(row)
 end
 
--- ── Clipboard paste ───────────────────────────────────────────────────────────
+-- -- Clipboard paste -----------------------------------------------------------
 
 function M.pasteAfter()
     if #S.clipboard == 0 then return end

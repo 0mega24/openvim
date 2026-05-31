@@ -4,7 +4,7 @@ local M = {}
 local function isWord(ch)  return ch:match("[%w_]") ~= nil end
 local function isSpace(ch) return ch == " " or ch == "\t"  end
 
--- ── Small-word motions ────────────────────────────────────────────────────────
+-- -- Small-word motions --------------------------------------------------------
 
 function M.wordForward()
     local line = S.buf[S.cy]
@@ -57,7 +57,7 @@ function M.wordEnd()
     S.cx = math.min(i, math.max(1,#line))
 end
 
--- ── WORD motions (whitespace-delimited) ───────────────────────────────────────
+-- -- WORD motions (whitespace-delimited) ---------------------------------------
 
 function M.WORDForward()
     local line = S.buf[S.cy]
@@ -88,7 +88,7 @@ function M.WORDEnd()
     S.cx = math.min(i, math.max(1,#line))
 end
 
--- ── First non-blank ───────────────────────────────────────────────────────────
+-- -- First non-blank -----------------------------------------------------------
 
 function M.firstNonBlank()
     local line = S.buf[S.cy]
@@ -97,7 +97,7 @@ function M.firstNonBlank()
     S.cx = math.min(i, math.max(1,#line))
 end
 
--- ── Find char on line (f/t/F/T) ───────────────────────────────────────────────
+-- -- Find char on line (f/t/F/T) -----------------------------------------------
 
 function M.findChar(ftype, ch)
     local line = S.buf[S.cy]
@@ -129,7 +129,7 @@ function M.findChar(ftype, ch)
     return false
 end
 
--- ── Bracket matching (%) ──────────────────────────────────────────────────────
+-- -- Bracket matching (%) ------------------------------------------------------
 
 local PAIRS_FWD = { ["("]=")", ["["]="]", ["{"]="}" }
 local PAIRS_BWD = { [")"]="(", ["]"]="[", ["}"]= "{" }
@@ -171,7 +171,7 @@ function M.matchBracket()
     end
 end
 
--- ── Search ───────────────────────────────────────────────────────────────────
+-- -- Search -------------------------------------------------------------------
 
 -- Find pattern in given direction from (r,c), wrapping around.
 -- Returns (row, col) on match or nil.

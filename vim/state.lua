@@ -61,7 +61,7 @@ S._curBg = -1
 
 -- Reset all fields to initial values.
 -- Called at the start of every main() invocation because OC caches
--- require() results — without this, S.running stays false after the
+-- require() results -- without this, S.running stays false after the
 -- first run and the editor soft-locks on every subsequent open.
 function S.reset()
     S.buf           = { "" }

@@ -4,7 +4,7 @@ local keyboard = require("keyboard")
 
 local M = {}
 
--- ── Ex command execution ──────────────────────────────────────────────────────
+-- -- Ex command execution ------------------------------------------------------
 
 function M.execCommand(cmd)
     cmd = cmd:match("^%s*(.-)%s*$")
@@ -16,7 +16,7 @@ function M.execCommand(cmd)
     elseif cmd:match("^w%s") then
         fio.cmdSave(cmd:match("^w%s+(.+)"))
     elseif cmd == "q" then
-        if S.modified then S.message="Unsaved changes — use :q! to force quit"
+        if S.modified then S.message="Unsaved changes -- use :q! to force quit"
         else S.running=false end
     elseif cmd == "q!" then
         S.running = false
@@ -103,7 +103,7 @@ function M.execCommand(cmd)
     end
 end
 
--- ── Command mode key handler ──────────────────────────────────────────────────
+-- -- Command mode key handler --------------------------------------------------
 
 function M.commandKey(char, code)
     local kb = keyboard
@@ -121,7 +121,7 @@ function M.commandKey(char, code)
     end
 end
 
--- ── Search mode key handler ───────────────────────────────────────────────────
+-- -- Search mode key handler ---------------------------------------------------
 
 function M.searchKey(char, code)
     local kb     = keyboard
