@@ -1,0 +1,74 @@
+" openvim configuration template
+" Copy this file to /home/.vimrc and uncomment / edit the lines you want.
+"
+" Lines starting with " are comments and are ignored.
+" Every line is run as an ex command when openvim starts.
+" The defaults shown below match what you get with no .vimrc at all.
+
+
+" ── Line numbers ──────────────────────────────────────────────────────────────
+
+" Show line numbers in the gutter.
+" set number
+" set nonumber        " hide them entirely
+
+" Show line numbers relative to the cursor (useful for jump counts like 5j).
+" The current line always shows its absolute number.
+" set rnu
+" set nornu           " back to absolute numbers
+
+
+" ── Cursor line ───────────────────────────────────────────────────────────────
+
+" Highlight the line the cursor is on with a subtle background tint.
+" set cursorline
+" set nocursorline    " disable the highlight
+
+
+" ── Color column ─────────────────────────────────────────────────────────────
+
+" Draw a faint ruler at this column as a line-length guide.
+" Set to 0 to turn it off.
+" set colorcolumn=80
+" set colorcolumn=100
+" set colorcolumn=0   " disable
+
+
+" ── Tab / indent width ────────────────────────────────────────────────────────
+
+" Number of spaces inserted by Tab in insert mode, and by > / < in normal mode.
+" set tabstop=2
+" set ts=2            " short alias for tabstop
+" set tabstop=4
+
+
+" ── Scroll offset ─────────────────────────────────────────────────────────────
+
+" Minimum number of lines to keep visible above and below the cursor.
+" Increase this for more context while scrolling.
+" set scrolloff=5
+" set so=5            " short alias for scrolloff
+" set scrolloff=8
+
+
+" ── Syntax highlighting ───────────────────────────────────────────────────────
+
+" Force a particular syntax mode regardless of file extension.
+"   lua   — Lua keywords, builtins, OC API names, strings, comments, numbers
+"   text  — no highlighting (plain white text)
+"   auto  — detect from file extension (.lua → lua, everything else → text)
+"
+" set syntax=auto
+" set syntax=lua
+" set syntax=text
+
+
+" ── Example: a config tuned for writing Lua on a small OC screen ─────────────
+
+" set number
+" set rnu
+" set cursorline
+" set colorcolumn=80
+" set tabstop=2
+" set scrolloff=4
+" set syntax=auto
