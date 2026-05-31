@@ -21,19 +21,24 @@ local REPO   = "https://raw.githubusercontent.com/0mega24/openvim/" .. branch ..
 
 -- Files to download: { source path in repo, destination on OC filesystem }
 local FILES = {
-    { "openvim.lua",     "/usr/bin/openvim"          },
-    { "vim/state.lua",   "/usr/lib/vim/state.lua"    },
-    { "vim/config.lua",  "/usr/lib/vim/config.lua"   },
-    { "vim/syntax.lua",  "/usr/lib/vim/syntax.lua"   },
-    { "vim/render.lua",  "/usr/lib/vim/render.lua"   },
-    { "vim/edit.lua",    "/usr/lib/vim/edit.lua"     },
-    { "vim/motion.lua",  "/usr/lib/vim/motion.lua"   },
-    { "vim/fileio.lua",  "/usr/lib/vim/fileio.lua"   },
-    { "vim/normal.lua",  "/usr/lib/vim/normal.lua"   },
-    { "vim/insert.lua",  "/usr/lib/vim/insert.lua"   },
-    { "vim/visual.lua",  "/usr/lib/vim/visual.lua"   },
-    { "vim/command.lua", "/usr/lib/vim/command.lua"  },
+    { "openvim.lua",        "/usr/bin/openvim"               },
+    { "vim/state.lua",      "/usr/lib/vim/state.lua"         },
+    { "vim/config.lua",     "/usr/lib/vim/config.lua"        },
+    { "vim/syntax.lua",     "/usr/lib/vim/syntax.lua"        },
+    { "vim/render.lua",     "/usr/lib/vim/render.lua"        },
+    { "vim/edit.lua",       "/usr/lib/vim/edit.lua"          },
+    { "vim/motion.lua",     "/usr/lib/vim/motion.lua"        },
+    { "vim/fileio.lua",     "/usr/lib/vim/fileio.lua"        },
+    { "vim/normal.lua",     "/usr/lib/vim/normal.lua"        },
+    { "vim/insert.lua",     "/usr/lib/vim/insert.lua"        },
+    { "vim/visual.lua",     "/usr/lib/vim/visual.lua"        },
+    { "vim/command.lua",    "/usr/lib/vim/command.lua"       },
+    { "vimrc.template",     "/etc/openvim/vimrc.template"    },
 }
+
+-- Installed only when /home/.vimrc does not already exist.
+local VIMRC_SRC = "vimrc.template"
+local VIMRC_DST = "/home/.vimrc"
 
 -- ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -123,11 +128,37 @@ for _, entry in ipairs(FILES) do
     end
 end
 
+-- ── Drop /home/.vimrc if it doesn't exist yet ─────────────────────────────────
+
+if filesystem.exists(VIMRC_DST) then
+    io.write(string.format("  %-28s -> %-30s  ", VIMRC_SRC, VIMRC_DST))
+    coloured(gpu, 0x888888, "skipped (already exists)\n")
+else
+    io.write(string.format("  %-28s -> %-30s  ", VIMRC_SRC, VIMRC_DST))
+    local data, err = fetch(REPO .. VIMRC_SRC)
+    if not data then
+        coloured(gpu, 0xff4444, "FAIL\n")
+        io.stderr:write("    " .. err .. "\n")
+        fail_count = fail_count + 1
+    else
+        local wrote, werr = writeFile(VIMRC_DST, data)
+        if not wrote then
+            coloured(gpu, 0xff4444, "FAIL\n")
+            io.stderr:write("    " .. (werr or "write error") .. "\n")
+            fail_count = fail_count + 1
+        else
+            coloured(gpu, 0x44ff44, "OK\n")
+            ok_count = ok_count + 1
+        end
+    end
+end
+
 print("")
 if fail_count == 0 then
     coloured(gpu, 0x44ff44, "Done! ")
     print(ok_count .. " file(s) installed.")
-    print("Run:  openvim <file>")
+    print("Run:    openvim <file>")
+    print("Config: /home/.vimrc  (reference copy at /etc/openvim/vimrc.template)")
 else
     coloured(gpu, 0xffaa00, "Partial install: ")
     print(ok_count .. " OK, " .. fail_count .. " failed.")
