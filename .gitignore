@@ -1,0 +1,14 @@
+# Backup files created by openvim on save
+*.bak
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor swap/temp files
+*.swp
+*.swo
+*~
+
+# Logs (OC vimlog output)
+/.vimlog/
