@@ -34,6 +34,7 @@ local FILES = {
     { "vim/visual.lua",     "/usr/lib/vim/visual.lua"        },
     { "vim/command.lua",    "/usr/lib/vim/command.lua"       },
     { "vimrc.template",     "/etc/openvim/vimrc.template"    },
+    { "uninstall.lua",      "/usr/bin/openvim-uninstall"     },
 }
 
 -- Installed only when /home/.vimrc does not already exist.
